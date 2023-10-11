@@ -16,7 +16,8 @@
     "parserOptions": { "project": ["./tsconfig.json"] },
     "plugins": [
         "@typescript-eslint",
-        "prettier"
+        "prettier",
+        "eslint-plugin-import-helpers"
     ],
     "rules": {
         "camelcase": "off",
@@ -49,7 +50,24 @@
             "ts": "never"
           }
         ],
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "import-helpers/order-imports": [
+          "warn",
+          {
+            "newlinesBetween": "always",
+            "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
+            "alphabetize": { "order": "asc", "ignoreCase": true }
+          }
+        ],
+        "import/no-extraneous-dependencies": [
+          "error",
+          { "devDependencies": ["**/*.spec.js"] }
+        ]
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": {}
+      }
     },
     "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
 }

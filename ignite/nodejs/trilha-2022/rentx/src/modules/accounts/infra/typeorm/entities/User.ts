@@ -1,21 +1,33 @@
-import { v4 as uuidV4 } from "uuid";
 import {
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { v4 as uuidV4 } from "uuid";
 
-@Entity("categories")
-class Category {
+@Entity("users")
+class User {
   @PrimaryGeneratedColumn("uuid")
-  id?: string;
+  id: string;
 
   @Column("varchar")
   name: string;
 
   @Column("varchar")
-  description: string;
+  email: string;
+
+  @Column("varchar")
+  password: string;
+
+  @Column("varchar")
+  driver_license: string;
+
+  @Column("boolean")
+  is_admin: boolean;
+
+  @Column("varchar")
+  avatar: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -27,4 +39,4 @@ class Category {
   }
 }
 
-export { Category };
+export { User };
