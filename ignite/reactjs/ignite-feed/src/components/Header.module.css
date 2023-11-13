@@ -3,8 +3,14 @@
     display: flex;
     justify-content: center;
     height: 1.25rem 0;
+    padding: 0.75rem;
 }
 
 .header img {
     height: 2rem;
+}
+
+.header strong {
+    padding-left: 1rem;
+    padding-top: 0.25rem;
 }

@@ -22,14 +22,18 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
     }
 
     return (
+
         <div className={styles.comment}>
-            <Avatar hasBorder={false} src="https://github.com/matheushfp.png" />
+            <Avatar
+                hasBorder={false}
+                src="https://github.com/matheushfp.png"
+            />
 
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>
                         <div className={styles.authorAndTime}>
-                            <strong>Jake Cooper</strong>
+                            <strong>Matheus Ferreira</strong>
                             <time title="7 de Novembro às 08h15min" dateTime="2023-11-07 08:15:00">Cerca de 1h atrás</time>
                         </div>
 
@@ -49,7 +53,7 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
                 </footer>
             </div>
 
-
         </div>
+
     );
 }
