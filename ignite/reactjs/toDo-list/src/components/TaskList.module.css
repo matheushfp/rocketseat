@@ -3,11 +3,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 4rem;
+    margin-top: 0.875rem;
 }
 
 .wrapper > header {
     width: 46rem;
+    max-height: 8rem;
     justify-content: space-between;
     font-weight: bold;
 
@@ -44,7 +45,6 @@ p span {
 }
 
 main {
-    margin-top: -1.5rem;
     padding: 0 1rem;
 }
 

@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { PlusCircle } from '@phosphor-icons/react'
 import { v4 as uuidV4 } from 'uuid'
 import styles from './Form.module.css'
-import { TaskList } from './TaskList'
 
 export interface ITask {
   id: string
@@ -10,8 +9,11 @@ export interface ITask {
   isCompleted: boolean
 }
 
-export function Form() {
-  const [tasks, setTasks] = useState<ITask[]>([])
+interface FormProps {
+  setTasks: React.Dispatch<React.SetStateAction<ITask[]>>
+}
+
+export function Form({ setTasks }: FormProps) {
   const [newTaskTitle, setNewTaskTitle] = useState('')
 
   function handleCreateNewTask(event: FormEvent) {
@@ -46,7 +48,6 @@ export function Form() {
           <PlusCircle size={16} />
         </button>
       </form>
-      <TaskList tasks={tasks} />
     </>
   )
 }

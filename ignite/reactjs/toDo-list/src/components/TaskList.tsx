@@ -7,9 +7,32 @@ import { ITask } from './Form'
 
 interface TaskListProps {
   tasks: ITask[]
+  setTasks: React.Dispatch<React.SetStateAction<ITask[]>>
 }
 
-export function TaskList({ tasks }: TaskListProps) {
+export function TaskList({ tasks, setTasks }: TaskListProps) {
+  const completedTasks = tasks.filter(
+    (task) => task.isCompleted === true,
+  ).length
+
+  function handleTaskIsCompleted(taskId: string) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskId) {
+          task.isCompleted = !task.isCompleted
+        }
+
+        return task
+      }),
+    )
+  }
+
+  function deleteTask(taskId: string) {
+    const tasksWithoutDeletedOne = tasks.filter((task) => task.id !== taskId)
+
+    setTasks(tasksWithoutDeletedOne)
+  }
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -23,7 +46,7 @@ export function TaskList({ tasks }: TaskListProps) {
           {tasks.length === 0 ? (
             <span>{tasks.length}</span>
           ) : (
-            <span>{`0 de ${tasks.length}`}</span>
+            <span>{`${completedTasks} de ${tasks.length}`}</span>
           )}
         </p>
       </header>
@@ -38,7 +61,15 @@ export function TaskList({ tasks }: TaskListProps) {
             <p>Crie tarefas e organize seus itens a fazer</p>
           </div>
         ) : (
-          tasks.map((task) => <Task key={task.id} title={task.title} />)
+          tasks.map((task) => (
+            <Task
+              key={task.id}
+              title={task.title}
+              id={task.id}
+              onDeleteTask={deleteTask}
+              handleTaskIsCompleted={handleTaskIsCompleted}
+            />
+          ))
         )}
       </main>
     </div>
