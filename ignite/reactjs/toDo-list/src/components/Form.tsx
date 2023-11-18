@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 import { PlusCircle } from '@phosphor-icons/react'
 import { v4 as uuidV4 } from 'uuid'
 import styles from './Form.module.css'
@@ -31,7 +31,12 @@ export function Form({ setTasks }: FormProps) {
   }
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
+    event.target.setCustomValidity('')
     setNewTaskTitle(event.target.value)
+  }
+
+  function handleNewTaskIsInvalid(event: InvalidEvent<HTMLInputElement>) {
+    event.target.setCustomValidity('Este campo é obrigatório!')
   }
 
   return (
@@ -41,7 +46,9 @@ export function Form({ setTasks }: FormProps) {
           type="text"
           placeholder="Adicione uma nova tarefa"
           onChange={handleNewTaskChange}
+          onInvalid={handleNewTaskIsInvalid}
           value={newTaskTitle}
+          required
         />
         <button type="submit">
           Criar

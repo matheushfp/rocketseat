@@ -36,6 +36,8 @@
     border: 2px solid var(--blue);
     border-radius: 999px;
     cursor: pointer;
+
+    transition: opacity 0.1s, background-color 0.1s, border 0.1s;
 }
 
 .task label input[type="checkbox"]:hover {
@@ -48,8 +50,21 @@
     border: 2px solid var(--purple-dark);
 }
 
+.task label input[type="checkbox"]:checked:hover {
+    background: var(--purple);
+    border: 2px solid var(--purple);
+    opacity: 0.7;
+}
+
+.task label input[type="checkbox"]:checked::after {
+   content:  url("../assets/check.svg");
+   margin-left: 0.3rem;
+}
+
 .task label span {
     padding-left: 0.75rem;
+
+    transition: 0.2s;
 }
 
 .task button {
@@ -60,6 +75,8 @@
     border: none;
     
     margin-top: 1rem;
+
+    transition: 0.2s;
 }
 
 .task button:hover {
