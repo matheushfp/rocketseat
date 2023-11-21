@@ -87,3 +87,9 @@
     color: var(--gray-300);
     text-decoration: line-through;
 }
+
+@media (max-width: 768px) {
+    .task {
+        max-width: 22rem;
+    }
+}

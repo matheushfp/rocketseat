@@ -46,3 +46,10 @@ form button {
 form button:hover {
     background-color: var(--blue);
 }
+
+
+@media (max-width: 768px) {
+    form input {
+        max-width: fit-content;
+    }
+}

@@ -64,3 +64,16 @@ main p {
     color: var(--gray-300);
     line-height: 1.4;
 }
+
+@media (max-width: 768px ) {
+    .wrapper {
+        padding: 0 1rem;
+    }
+
+    .wrapper > header {
+        display: flex;
+        justify-content: space-between;
+        max-width: max-content;
+        gap: 4rem;
+    }
+}
