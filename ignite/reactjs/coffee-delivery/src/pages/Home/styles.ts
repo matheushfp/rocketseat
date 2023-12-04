@@ -63,4 +63,9 @@ export const IconContainer = styled.div<IconContainerProps>`
 
 export const CoffeeList = styled.div`
   margin-top: 4rem;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 2.5rem;
+  column-gap: 2rem;
 `

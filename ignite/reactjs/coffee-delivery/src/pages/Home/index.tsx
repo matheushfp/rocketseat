@@ -63,6 +63,19 @@ export function Home() {
         <h2>Nossos Cafés</h2>
         <CoffeeList>
           <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
         </CoffeeList>
       </main>
     </>

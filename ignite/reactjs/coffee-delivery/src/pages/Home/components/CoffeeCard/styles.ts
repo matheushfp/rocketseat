@@ -51,6 +51,13 @@ export const BuyContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
 `
 
 export const PriceContainer = styled.div`
@@ -64,6 +71,10 @@ export const PriceContainer = styled.div`
     font-family: 'Baloo 2', sans-serif;
     font-size: 1.5rem;
     font-weight: 800;
+
+    margin-left: 0.25rem;
+    margin-right: 1.4375rem;
+    margin-bottom: 0.15rem;
   }
 `
 
@@ -75,9 +86,12 @@ export const CounterContainer = styled.div`
 
   padding: 0.75rem 0.5rem;
 
+  min-width: 4.5rem;
+
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  justify-content: center;
+  gap: 0.5rem;
 
   button {
     outline: none;

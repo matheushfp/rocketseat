@@ -21,19 +21,22 @@ export function CoffeeCard() {
       </p>
       <BuyContainer>
         <PriceContainer>
-          R$<strong>{'  '}9,90</strong>
+          <span>R$</span>
+          <strong>9,90</strong>
         </PriceContainer>
 
-        <CounterContainer>
-          <button>
-            <Minus size={14} weight="bold" color="#8047F8" />
-          </button>
-          1
-          <button>
-            <Plus size={14} weight="bold" color="#8047F8" />
-          </button>
-        </CounterContainer>
-        <Button iconColor="white" background="purple" />
+        <div className="container">
+          <CounterContainer>
+            <button>
+              <Minus size={14} weight="bold" color="#8047F8" />
+            </button>
+            1
+            <button>
+              <Plus size={14} weight="bold" color="#8047F8" />
+            </button>
+          </CounterContainer>
+          <Button iconColor="white" background="purple" />
+        </div>
       </BuyContainer>
     </Card>
   )
