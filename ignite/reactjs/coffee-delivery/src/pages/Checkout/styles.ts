@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 export const CheckoutContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 2rem;
+
   h4 {
     color: ${(props) => props.theme['base-subtitle']};
     font-size: 1.125rem;
@@ -128,4 +132,61 @@ export const PaymentMethod = styled.button`
   gap: 0.75rem;
 
   flex: 1;
+
+  cursor: pointer;
+`
+
+export const CartDetailed = styled.div`
+  background: ${(props) => props.theme['base-card']};
+  color: ${(props) => props.theme['base-text']};
+
+  padding: 2.5rem;
+
+  width: 28rem;
+
+  margin-top: 1rem;
+
+  border-top-left-radius: 6px;
+  border-top-right-radius: 44px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 44px;
+`
+
+export const CostsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    p:first-of-type {
+      font-size: 0.875rem;
+    }
+
+    strong {
+      font-size: 1.25rem;
+    }
+  }
+`
+
+export const ConfirmButton = styled.button`
+  background: ${(props) => props.theme.yellow};
+  counter-reset: ${(props) => props.theme.white};
+  border: none;
+
+  width: 100%;
+
+  border-radius: 6px;
+
+  padding: 0.75rem;
+
+  margin-top: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
 `
