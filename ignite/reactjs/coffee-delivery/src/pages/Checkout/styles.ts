@@ -45,29 +45,12 @@ export const UFInput = styled(BaseInput)`
 `
 
 export const FormContainer = styled.div`
-  background: ${(props) => props.theme['base-card']};
   color: ${(props) => props.theme['base-text']};
-
-  border-radius: 6px;
-
-  padding: 2.5rem;
-
-  margin-top: 1rem;
-
-  div {
-    display: flex;
-  }
 
   form {
     display: flex;
     flex-direction: column;
-    row-gap: 1rem;
-
-    div {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
+    gap: 0.75rem;
 
     input::placeholder {
       color: ${(props) => props.theme['base-label']};
@@ -89,24 +72,44 @@ export const FormTitleContainer = styled.div`
 
   gap: 0.125rem;
 
-  p {
+  span {
     color: ${(props) => props.theme['base-subtitle']};
   }
 
-  span {
+  p {
     font-size: 0.875rem;
   }
 `
 
-export const PaymentContainer = styled.div`
+export const AddressInfoContainer = styled.div`
   background: ${(props) => props.theme['base-card']};
-  color: ${(props) => props.theme['base-text']};
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 
   border-radius: 6px;
 
   padding: 2.5rem;
 
-  margin-top: 0.75rem;
+  margin-top: 1rem;
+`
+
+export const AddressInfoHeaderContainer = styled(FormHeaderContainer)``
+export const AddressInfoTitleContainer = styled(FormTitleContainer)``
+
+export const FormRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`
+
+export const PaymentContainer = styled.div`
+  background: ${(props) => props.theme['base-card']};
+
+  border-radius: 6px;
+
+  padding: 2.5rem;
 
   div {
     display: flex;
@@ -117,23 +120,36 @@ export const PaymentContainer = styled.div`
 export const PaymentHeaderContainer = styled(FormHeaderContainer)``
 export const PaymentTitleContainer = styled(FormTitleContainer)``
 
-export const PaymentMethod = styled.button`
-  background: ${(props) => props.theme['base-button']};
-  color: ${(props) => props.theme['base-text']};
-
-  font-size: 0.75rem;
-
-  border: none;
-  border-radius: 6px;
-  padding: 1rem;
-
+export const PaymentMethods = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
 
-  flex: 1;
+  input[type='radio'] {
+    display: none;
+  }
 
-  cursor: pointer;
+  label {
+    background: ${(props) => props.theme['base-button']};
+
+    border-radius: 6px;
+    padding: 1rem;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  input[type='radio']:checked + label {
+    background: ${(props) => props.theme['purple-light']};
+    box-shadow: 0 0 0 1px ${(props) => props.theme.purple};
+  }
+
+  input[type='radio']:hover + label {
+    background: ${(props) => props.theme['base-hover']};
+    color: ${(props) => props.theme['base-subtitle']};
+  }
 `
 
 export const CartDetailed = styled.div`

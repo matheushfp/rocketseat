@@ -8,6 +8,7 @@ import {
   TitleContainer,
 } from './styles'
 import { CoffeeCard } from './components/CoffeeCard'
+import coffees from '../../coffees'
 
 export function Home() {
   return (
@@ -62,20 +63,16 @@ export function Home() {
       <main>
         <h2>Nossos Cafés</h2>
         <CoffeeList>
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
+          {coffees.map((coffee) => (
+            <CoffeeCard
+              key={coffee.id}
+              title={coffee.title}
+              description={coffee.description}
+              tags={coffee.tags}
+              img={coffee.img}
+              price={coffee.price}
+            />
+          ))}
         </CoffeeList>
       </main>
     </>

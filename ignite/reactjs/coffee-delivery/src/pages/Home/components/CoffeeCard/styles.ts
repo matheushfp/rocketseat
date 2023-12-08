@@ -32,7 +32,16 @@ export const Card = styled.div`
   p {
     font-size: 0.875rem;
     color: ${(props) => props.theme['base-label']};
+
+    text-align: center;
+
+    padding: 0 1.25rem;
   }
+`
+
+export const TagsWrapper = styled.div`
+  display: flex;
+  gap: 0.25rem;
 `
 
 export const TagContainer = styled.span`
