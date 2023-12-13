@@ -21,6 +21,7 @@ import {
   FormRow,
   NumeroInput,
   PaymentContainer,
+  PaymentErrorMessage,
   PaymentHeaderContainer,
   PaymentMethods,
   PaymentTitleContainer,
@@ -31,6 +32,8 @@ import { CartItem } from './components/CartItem'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { useCart } from '../../hooks/useCart'
+import coffees from '../../coffees'
 
 type FormInputs = {
   cep: string
@@ -59,18 +62,30 @@ const orderValidationSchema = z.object({
   city: z.string().min(1, 'Informe a cidade'),
   state: z.string().min(1, 'Informe a UF').max(2),
   paymentMethod: z.enum(['credit', 'debit', 'cash'], {
-    invalid_type_error: 'Informe um método de pagamento',
+    invalid_type_error: 'Selecione um método de pagamento',
   }),
 })
 
 export function Checkout() {
-  const { register, handleSubmit } = useForm<FormInputs>({
+  const { cart } = useCart()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>({
     resolver: zodResolver(orderValidationSchema),
   })
 
   function onSubmit(data) {
     console.log(data)
   }
+
+  const prices = cart.map((item) => {
+    const coffee = coffees.find((coffee) => coffee.id === item.id)
+    return coffee!.price * item.quantity
+  })
+
+  const shippingPrice = 3.5
 
   return (
     <CheckoutContainer>
@@ -191,6 +206,29 @@ export function Checkout() {
                   DINHEIRO
                 </label>
               </PaymentMethods>
+              {Object.keys(errors).length !== 0 ? (
+                <PaymentErrorMessage>
+                  <div>
+                    <p>{errors.cep?.message}</p>
+                    <p>{errors.street?.message}</p>
+                    <p>
+                      {Object.keys(errors).includes('number')
+                        ? 'Informe o número'
+                        : null}
+                    </p>
+                    <p>{errors.neighborhood?.message}</p>
+                  </div>
+
+                  <div>
+                    <p>{errors.city?.message}</p>
+                    <p>{errors.state?.message}</p>
+                    <p>{errors.paymentMethod?.message}</p>
+                    {cart.length === 0 ? (
+                      <p>O carrinho deve possuir ao menos um produto</p>
+                    ) : null}
+                  </div>
+                </PaymentErrorMessage>
+              ) : null}
             </PaymentContainer>
           </form>
         </FormContainer>
@@ -199,23 +237,53 @@ export function Checkout() {
       <div>
         <h4>Cafés selecionados</h4>
         <CartDetailed>
-          <CartItem />
-          <CartItem />
-
+          {cart.map((item) => {
+            const coffee = coffees.find((coffee) => coffee.id === item.id)
+            return (
+              <CartItem
+                key={coffee!.id}
+                id={coffee!.id}
+                img={coffee!.img}
+                title={coffee!.title}
+                basePrice={coffee!.price}
+                quantity={item.quantity}
+              />
+            )
+          })}
           <CostsContainer>
             <div>
               <p>Total de items</p>
-              <p>R$ 29,70</p>
+              {prices.length !== 0 ? (
+                <p>{`R$ ${prices
+                  .reduce((acc, currentValue) => acc + currentValue)
+                  .toFixed(2)
+                  .replace('.', ',')}`}</p>
+              ) : (
+                <p>R$ 0,00</p>
+              )}
             </div>
 
             <div>
               <p>Entrega</p>
-              <p>R$ 3,50</p>
+              {prices.length !== 0 ? (
+                <p>{`R$ ${shippingPrice.toFixed(2).replace('.', ',')}`}</p>
+              ) : (
+                <p>R$ 0,00</p>
+              )}
             </div>
 
             <div>
               <strong>Total</strong>
-              <strong>R$ 33,20</strong>
+              {prices.length !== 0 ? (
+                <strong>{`R$ ${(
+                  prices.reduce((acc, currentValue) => acc + currentValue) +
+                  shippingPrice
+                )
+                  .toFixed(2)
+                  .replace('.', ',')}`}</strong>
+              ) : (
+                <strong>R$ 0,00</strong>
+              )}
             </div>
           </CostsContainer>
           <ConfirmButton type="submit" form="order">

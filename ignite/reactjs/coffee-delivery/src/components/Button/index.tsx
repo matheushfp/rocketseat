@@ -4,11 +4,12 @@ import { CartButton } from './styles'
 interface ButtonProps {
   iconColor: 'white' | 'orange'
   background: 'yellow' | 'purple'
+  onClick?: () => void
 }
 
-export function Button({ iconColor, background }: ButtonProps) {
+export function Button({ iconColor, background, onClick }: ButtonProps) {
   return (
-    <CartButton $background={background}>
+    <CartButton $background={background} onClick={onClick}>
       <ShoppingCart
         size={22}
         weight="fill"

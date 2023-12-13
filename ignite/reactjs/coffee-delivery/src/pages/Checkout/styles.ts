@@ -206,3 +206,18 @@ export const ConfirmButton = styled.button`
 
   cursor: pointer;
 `
+
+export const PaymentErrorMessage = styled.div`
+  display: flex;
+  font-size: 0.875rem;
+  color: red;
+
+  margin-top: 1rem;
+  margin-bottom: -1rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+`

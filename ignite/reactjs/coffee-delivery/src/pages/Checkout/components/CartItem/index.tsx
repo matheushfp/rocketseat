@@ -1,5 +1,5 @@
 import { Minus, Plus, Trash } from '@phosphor-icons/react'
-import expresso from '../../../../assets/coffees/expresso.svg'
+import { useCart } from '../../../../hooks/useCart'
 import {
   BorderContainer,
   ButtonsContainer,
@@ -9,31 +9,61 @@ import {
   Wrapper,
 } from './styles'
 
-export function CartItem() {
+interface CartItemProps {
+  id: number
+  img: string
+  title: string
+  basePrice: number
+  quantity: number
+}
+
+export function CartItem({
+  id,
+  img,
+  title,
+  basePrice,
+  quantity,
+}: CartItemProps) {
+  const { incrementItemQuantity, decrementItemQuantity, removeItem } = useCart()
+
+  function handleDecrementItemQuantity(itemId: number) {
+    decrementItemQuantity(itemId)
+  }
+
+  function handleIncrementItemQuantity(itemId: number) {
+    incrementItemQuantity(itemId)
+  }
+
+  function handleRemoveItem(itemId: number) {
+    removeItem(itemId)
+  }
+
   return (
     <BorderContainer>
       <CartItemContainer>
-        <img src={expresso} width={64} alt="" />
+        <img src={img} width={64} alt="" />
         <Wrapper>
           <div>
-            <span>Expresso Tradicional</span>
+            <span>{title}</span>
             <ButtonsContainer>
               <CounterContainer>
-                <button>
+                <button onClick={() => handleDecrementItemQuantity(id)}>
                   <Minus size={14} color="#8047F8" />
                 </button>
-                1
-                <button>
+                {quantity}
+                <button onClick={() => handleIncrementItemQuantity(id)}>
                   <Plus size={14} color="#8047F8" />
                 </button>
               </CounterContainer>
-              <RemoveButton>
+              <RemoveButton onClick={() => handleRemoveItem(id)}>
                 <Trash size={14} color="#8047F8" />
                 REMOVER
               </RemoveButton>
             </ButtonsContainer>
           </div>
-          <strong>R$ 9,90</strong>
+          <strong>{`R$ ${(quantity * basePrice)
+            .toFixed(2)
+            .replace('.', ',')}`}</strong>
         </Wrapper>
       </CartItemContainer>
     </BorderContainer>

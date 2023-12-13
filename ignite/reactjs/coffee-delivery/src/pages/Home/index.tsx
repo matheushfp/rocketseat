@@ -1,4 +1,5 @@
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
+import { useCart } from '../../hooks/useCart'
 import intro from '../../assets/intro.svg'
 import {
   CoffeeList,
@@ -8,9 +9,13 @@ import {
   TitleContainer,
 } from './styles'
 import { CoffeeCard } from './components/CoffeeCard'
+
 import coffees from '../../coffees'
 
 export function Home() {
+  const { cart } = useCart()
+  console.log(cart)
+
   return (
     <>
       <IntroContainer>
@@ -66,6 +71,7 @@ export function Home() {
           {coffees.map((coffee) => (
             <CoffeeCard
               key={coffee.id}
+              id={coffee.id}
               title={coffee.title}
               description={coffee.description}
               tags={coffee.tags}

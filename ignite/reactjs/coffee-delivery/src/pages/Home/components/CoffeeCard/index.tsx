@@ -9,8 +9,10 @@ import {
 import { Minus, Plus } from '@phosphor-icons/react'
 import { Button } from '../../../../components/Button'
 import { useState } from 'react'
+import { useCart } from '../../../../hooks/useCart'
 
 interface CoffeeCardProps {
+  id: number
   title: string
   description: string
   tags: string[]
@@ -19,12 +21,14 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({
+  id,
   title,
   description,
   tags,
   img,
   price,
 }: CoffeeCardProps) {
+  const { addItem } = useCart()
   const [quantity, setQuantity] = useState(0)
 
   function handleIncrementCount() {
@@ -37,12 +41,24 @@ export function CoffeeCard({
     }
   }
 
+  function handleAddItem() {
+    const newItem = {
+      id,
+      quantity,
+    }
+
+    addItem(newItem)
+    setQuantity(0)
+  }
+
   return (
     <Card>
       <img src={img} width={120} alt="" />
       <TagsWrapper>
-        {tags.map((tag) => (
-          <TagContainer>{tag.toUpperCase()}</TagContainer>
+        {tags.map((tag, idx) => (
+          <TagContainer key={`${id}-tag${idx}`}>
+            {tag.toUpperCase()}
+          </TagContainer>
         ))}
       </TagsWrapper>
       <h3>{title}</h3>
@@ -63,7 +79,11 @@ export function CoffeeCard({
               <Plus size={14} weight="bold" color="#8047F8" />
             </button>
           </CounterContainer>
-          <Button iconColor="white" background="purple" />
+          <Button
+            iconColor="white"
+            background="purple"
+            onClick={handleAddItem}
+          />
         </div>
       </BuyContainer>
     </Card>
