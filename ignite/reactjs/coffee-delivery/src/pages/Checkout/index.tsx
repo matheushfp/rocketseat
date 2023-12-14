@@ -66,8 +66,10 @@ const orderValidationSchema = z.object({
   }),
 })
 
+export type OrderInfo = z.infer<typeof orderValidationSchema>
+
 export function Checkout() {
-  const { cart } = useCart()
+  const { cart, checkout } = useCart()
   const {
     register,
     handleSubmit,
@@ -76,16 +78,23 @@ export function Checkout() {
     resolver: zodResolver(orderValidationSchema),
   })
 
-  function onSubmit(data) {
-    console.log(data)
-  }
-
   const prices = cart.map((item) => {
     const coffee = coffees.find((coffee) => coffee.id === item.id)
     return coffee!.price * item.quantity
   })
 
   const shippingPrice = 3.5
+
+  let cartIsEmpty: boolean
+  if (cart.length === 0) {
+    cartIsEmpty = true
+  } else {
+    cartIsEmpty = false
+  }
+
+  function onSubmit(data) {
+    checkout(data)
+  }
 
   return (
     <CheckoutContainer>
@@ -286,7 +295,7 @@ export function Checkout() {
               )}
             </div>
           </CostsContainer>
-          <ConfirmButton type="submit" form="order">
+          <ConfirmButton type="submit" form="order" disabled={cartIsEmpty}>
             CONFIRMAR PEDIDO
           </ConfirmButton>
         </CartDetailed>

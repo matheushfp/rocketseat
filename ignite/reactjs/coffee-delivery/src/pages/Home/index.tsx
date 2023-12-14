@@ -1,5 +1,4 @@
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
-import { useCart } from '../../hooks/useCart'
 import intro from '../../assets/intro.svg'
 import {
   CoffeeList,
@@ -13,9 +12,6 @@ import { CoffeeCard } from './components/CoffeeCard'
 import coffees from '../../coffees'
 
 export function Home() {
-  const { cart } = useCart()
-  console.log(cart)
-
   return (
     <>
       <IntroContainer>

@@ -1,13 +1,20 @@
 import { produce } from 'immer'
 import { Action, ActionTypes } from './actions'
+import { OrderInfo } from '../../pages/Checkout'
 
 export interface Item {
   id: number
   quantity: number
 }
 
+export interface Order extends OrderInfo {
+  id: number
+  items: Item[]
+}
+
 interface CartState {
   cart: Item[]
+  orders: Order[]
 }
 
 export function cartReducer(state: CartState, action: Action) {
@@ -55,6 +62,19 @@ export function cartReducer(state: CartState, action: Action) {
         if (itemToDecrement?.id && itemToDecrement.quantity > 1) {
           itemToDecrement.quantity -= 1
         }
+      })
+
+    case ActionTypes.CHECKOUT:
+      return produce(state, (draft) => {
+        const newOrder = {
+          id: new Date().getTime(),
+          items: state.cart,
+          ...action.payload.order,
+        }
+        draft.orders.push(newOrder)
+        draft.cart = []
+
+        action.payload.callback(`/order/${newOrder.id}/success`)
       })
 
     default:

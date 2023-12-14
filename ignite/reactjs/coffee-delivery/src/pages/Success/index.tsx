@@ -6,8 +6,25 @@ import {
   OrderInfo,
   TitleContainer,
 } from './styles'
+import { useCart } from '../../hooks/useCart'
+import { useParams } from 'react-router-dom'
 
 export function Success() {
+  const { orders } = useCart()
+  const { orderId } = useParams()
+
+  const orderInfo = orders.find((order) => order.id === Number(orderId))
+
+  if (!orderInfo) {
+    return null
+  }
+
+  const paymentMethod = {
+    credit: 'Cartão de Crédito',
+    debit: 'Cartão de Débito',
+    cash: 'Dinheiro',
+  }
+
   return (
     <>
       <TitleContainer>
@@ -21,8 +38,12 @@ export function Success() {
               <MapPin weight="fill" />
             </IconContainer>
             <p>
-              Entrega em <strong>Avenida Paulista, 671</strong> <br />
-              <p>Bela Vista, São Paulo - SP</p>
+              Entrega em{' '}
+              <strong>
+                {orderInfo.street}, {orderInfo.number}
+              </strong>{' '}
+              <br />
+              {orderInfo.neighborhood}, {orderInfo.city} - {orderInfo.state}
             </p>
           </div>
 
@@ -42,7 +63,7 @@ export function Success() {
             </IconContainer>
             <p>
               Pagamento na entrega <br />
-              <strong>Cartão de Crédito</strong>
+              <strong>{paymentMethod[orderInfo.paymentMethod]}</strong>
             </p>
           </div>
         </OrderInfo>
