@@ -4,6 +4,7 @@ import {
   GridContainer,
   IconContainer,
   OrderInfo,
+  OrderInfoWrapper,
   TitleContainer,
 } from './styles'
 import { useCart } from '../../hooks/useCart'
@@ -32,41 +33,43 @@ export function Success() {
         <span>Agora é só aguardar que logo o café chegará até você</span>
       </TitleContainer>
       <GridContainer>
-        <OrderInfo>
-          <div>
-            <IconContainer $background="purple">
-              <MapPin weight="fill" />
-            </IconContainer>
-            <p>
-              Entrega em{' '}
-              <strong>
-                {orderInfo.street}, {orderInfo.number}
-              </strong>{' '}
-              <br />
-              {orderInfo.neighborhood}, {orderInfo.city} - {orderInfo.state}
-            </p>
-          </div>
+        <OrderInfoWrapper>
+          <OrderInfo>
+            <div>
+              <IconContainer $background="purple">
+                <MapPin weight="fill" />
+              </IconContainer>
+              <p>
+                Entrega em{' '}
+                <strong>
+                  {orderInfo.street}, {orderInfo.number}
+                </strong>{' '}
+                <br />
+                {orderInfo.neighborhood}, {orderInfo.city} - {orderInfo.state}
+              </p>
+            </div>
 
-          <div>
-            <IconContainer $background="yellow">
-              <Timer weight="fill" />
-            </IconContainer>
-            <p>
-              Previsão de Entrega <br />
-              <strong>20 min - 30 min</strong>
-            </p>
-          </div>
+            <div>
+              <IconContainer $background="yellow">
+                <Timer weight="fill" />
+              </IconContainer>
+              <p>
+                Previsão de Entrega <br />
+                <strong>20 min - 30 min</strong>
+              </p>
+            </div>
 
-          <div>
-            <IconContainer $background="orange">
-              <CurrencyDollar />
-            </IconContainer>
-            <p>
-              Pagamento na entrega <br />
-              <strong>{paymentMethod[orderInfo.paymentMethod]}</strong>
-            </p>
-          </div>
-        </OrderInfo>
+            <div>
+              <IconContainer $background="orange">
+                <CurrencyDollar />
+              </IconContainer>
+              <p>
+                Pagamento na entrega <br />
+                <strong>{paymentMethod[orderInfo.paymentMethod]}</strong>
+              </p>
+            </div>
+          </OrderInfo>
+        </OrderInfoWrapper>
         <img src={illustration} alt="" />
       </GridContainer>
     </>

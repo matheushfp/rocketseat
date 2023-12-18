@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useReducer } from 'react'
+import { ReactNode, createContext, useEffect, useReducer } from 'react'
 import { Item, Order, cartReducer } from '../reducers/cart/reducer'
 import {
   addItemAction,
@@ -27,10 +27,22 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextData)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartState, dispatch] = useReducer(cartReducer, {
-    cart: [],
-    orders: [],
-  })
+  const [cartState, dispatch] = useReducer(
+    cartReducer,
+    {
+      cart: [],
+      orders: [],
+    },
+    (cartState) => {
+      const storedState = localStorage.getItem('@coffee-delivery:cart-1.0.0')
+
+      if (storedState) {
+        return JSON.parse(storedState)
+      }
+
+      return cartState
+    },
+  )
 
   const { cart, orders } = cartState
   const navigate = useNavigate()
@@ -54,6 +66,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   function checkout(order: OrderInfo) {
     dispatch(checkoutAction(order, navigate))
   }
+
+  useEffect(() => {
+    if (cartState) {
+      const stateJSON = JSON.stringify(cartState)
+
+      localStorage.setItem('@coffee-delivery:cart-1.0.0', stateJSON)
+    }
+  }, [cartState])
 
   return (
     <CartContext.Provider

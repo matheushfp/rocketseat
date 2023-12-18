@@ -189,6 +189,7 @@ export const CostsContainer = styled.div`
 
 export const ConfirmButton = styled.button`
   background: ${(props) => props.theme.yellow};
+  color: ${(props) => props.theme.white};
   counter-reset: ${(props) => props.theme.white};
   border: none;
 
@@ -205,6 +206,12 @@ export const ConfirmButton = styled.button`
   justify-content: center;
 
   cursor: pointer;
+
+  transition: 0.2s;
+
+  &:hover {
+    background: ${(props) => props.theme['yellow-dark']};
+  }
 `
 
 export const PaymentErrorMessage = styled.div`

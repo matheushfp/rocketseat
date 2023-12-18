@@ -64,6 +64,13 @@ export const RemoveButton = styled.button`
   border: none;
   border-radius: 6px;
   cursor: pointer;
+
+  transition: 0.2s;
+
+  &:hover {
+    background: ${(props) => props.theme['base-hover']};
+    color: ${(props) => props.theme['base-subtitle']};
+  }
 `
 
 export const BorderContainer = styled.div`

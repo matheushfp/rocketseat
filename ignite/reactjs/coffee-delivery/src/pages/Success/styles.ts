@@ -19,14 +19,35 @@ export const GridContainer = styled.div`
   margin-top: 2.5rem;
 `
 
+export const OrderInfoWrapper = styled.div`
+  border: double 1.5px transparent;
+
+  border-top-left-radius: 6px;
+  border-top-right-radius: 36px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 36px;
+
+  background-image: linear-gradient(
+      ${(props) => props.theme.background},
+      ${(props) => props.theme.background}
+    ),
+    linear-gradient(
+      to left,
+      ${(props) => props.theme.purple},
+      ${(props) => props.theme.yellow}
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  margin-top: 1rem;
+`
+
 export const OrderInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
   padding: 2.5rem;
-
-  border: 1px solid black;
 
   border-top-left-radius: 6px;
   border-top-right-radius: 36px;

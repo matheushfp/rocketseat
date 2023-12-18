@@ -29,14 +29,14 @@ export function CoffeeCard({
   price,
 }: CoffeeCardProps) {
   const { addItem } = useCart()
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1)
 
   function handleIncrementCount() {
     setQuantity((state) => state + 1)
   }
 
   function handleDecrementCount() {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity((state) => state - 1)
     }
   }
@@ -48,7 +48,7 @@ export function CoffeeCard({
     }
 
     addItem(newItem)
-    setQuantity(0)
+    setQuantity(1)
   }
 
   return (
