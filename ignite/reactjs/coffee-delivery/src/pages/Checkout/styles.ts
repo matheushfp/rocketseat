@@ -11,6 +11,27 @@ export const CheckoutContainer = styled.div`
     font-family: 'Baloo 2', sans-serif;
     font-weight: 700;
   }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    padding: 0 1rem;
+
+    margin: 0 -3rem;
+
+    > div {
+      padding: 0 1rem;
+
+      h4 {
+        margin-left: 1rem;
+        padding-top: 1rem;
+      }
+    }
+  }
 `
 
 export const BaseInput = styled.input`
@@ -42,6 +63,10 @@ export const CidadeInput = styled(BaseInput)`
 
 export const UFInput = styled(BaseInput)`
   width: 10%;
+
+  @media (max-width: 768px) {
+    width: 25%;
+  }
 `
 
 export const FormContainer = styled.div`
@@ -149,6 +174,18 @@ export const PaymentMethods = styled.div`
   input[type='radio']:hover + label {
     background: ${(props) => props.theme['base-hover']};
     color: ${(props) => props.theme['base-subtitle']};
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      display: flex;
+      align-items: center;
+      height: 2rem;
+      width: 60%;
+    }
   }
 `
 

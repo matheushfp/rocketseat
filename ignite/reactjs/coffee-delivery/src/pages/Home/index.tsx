@@ -23,7 +23,7 @@ export function Home() {
               para qualquer hora do dia
             </h1>
             <span>
-              Com o Coffee Delivery você recebe seu café onde estiver, a<br />
+              Com o Coffee Delivery você recebe seu café onde estiver, a <br />
               qualquer hora
             </span>
           </TitleContainer>

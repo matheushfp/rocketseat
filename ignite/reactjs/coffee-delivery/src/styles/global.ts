@@ -46,4 +46,21 @@ export const GlobalStyle = createGlobalStyle`
         line-height: 1.3;
         color: ${(props) => props.theme['base-subtitle']};
     }
+
+    @media (max-width: 768px) {
+        html {
+            font-size: 87.5%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            -webkit-font-smoothing: antialiased;
+
+            padding: 0 1rem;
+        }
+    }
 `

@@ -9,6 +9,10 @@ export const TitleContainer = styled.div`
     color: ${(props) => props.theme['base-subtitle']};
     font-size: 1.25rem;
   }
+
+  @media (max-width: 768px) {
+    padding-top: 2rem;
+  }
 `
 
 export const GridContainer = styled.div`
@@ -17,6 +21,18 @@ export const GridContainer = styled.div`
   column-gap: 6.375rem;
 
   margin-top: 2.5rem;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+
+    padding: 0 1rem;
+
+    img {
+      width: 25rem;
+    }
+  }
 `
 
 export const OrderInfoWrapper = styled.div`

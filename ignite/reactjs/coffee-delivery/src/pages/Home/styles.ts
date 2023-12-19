@@ -6,6 +6,19 @@ export const IntroContainer = styled.div`
   gap: 3.5rem;
 
   padding: 5.875rem 0 6.75rem;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: -4rem;
+    margin-bottom: -4rem;
+
+    img {
+      width: 25rem;
+    }
+  }
 `
 
 export const TitleContainer = styled.div`
@@ -16,6 +29,14 @@ export const TitleContainer = styled.div`
   span {
     color: ${(props) => props.theme['base-subtitle']};
     font-size: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    span {
+      br {
+        display: none;
+      }
+    }
   }
 `
 
@@ -68,4 +89,11 @@ export const CoffeeList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   row-gap: 2.5rem;
   column-gap: 2rem;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
