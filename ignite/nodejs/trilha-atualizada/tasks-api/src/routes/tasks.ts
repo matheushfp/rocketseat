@@ -1,6 +1,8 @@
+import { parse } from 'csv-parse'
 import { Router } from 'express'
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
+import { verifyFile } from '../middlewares/verifyFile'
 import { verifyId } from '../middlewares/verifyId'
 
 export const tasksRouter = Router()
@@ -27,7 +29,31 @@ tasksRouter.get('/', async (req, res) => {
 	res.json(tasks)
 })
 
-tasksRouter.post('/', async (req, res) => {
+tasksRouter.post('/', verifyFile, async (req, res) => {
+	// handle multipart/form-data requests
+	if (req.headers['content-type']?.includes('multipart/form-data')) {
+		if (req.file && req.file.mimetype === 'text/csv') {
+			const data = await parse(req.file.buffer, { from_line: 2 }).toArray()
+
+			await Promise.all(
+				data.map(async (row) => {
+					const [title, description] = row
+
+					await prisma.task.create({
+						data: {
+							title,
+							description,
+						},
+					})
+				}),
+			)
+
+			res.status(201).end()
+			return
+		}
+	}
+
+	// handle requests without file
 	const createTaskBody = z.object({
 		title: z.string(),
 		description: z.string(),
