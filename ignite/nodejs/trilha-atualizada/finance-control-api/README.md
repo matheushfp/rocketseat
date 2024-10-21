@@ -28,13 +28,13 @@ The User should be able to:<br>
 <b>.env</b>:
 ```env
 DATABASE_URL="file:./dev.db"
-DATABASE_CLIENT="sqlite"
+DATABASE_CLIENT="sqlite3"
 NODE_ENV="development"
 ```
 
 <b>.env.test</b>:
 ```env
-DATABASE_CLIENT="sqlite"
+DATABASE_CLIENT="sqlite3"
 DATABASE_URL="./db/test.db"
 ```
 
@@ -54,11 +54,12 @@ User can list a specific transaction created by him
 
 ### POST /transactions
 User can create a transaction sending a body with `title`, `amount` and `type`.<br>
+The type should be 'credit' or 'debit'
 
 ```json
 {
     "title": "New Transaction",
     "amount": 4000,
-    "type": "credit" // should be 'credit' or 'debit'
+    "type": "credit"
 }
 ```
