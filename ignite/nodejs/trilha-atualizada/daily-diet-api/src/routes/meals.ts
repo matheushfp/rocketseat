@@ -44,6 +44,9 @@ export async function mealsRoutes(app: FastifyInstance) {
       where: {
         user_id: userId,
       },
+      orderBy: {
+        date: 'desc',
+      },
     })
 
     return {
@@ -255,5 +258,56 @@ export async function mealsRoutes(app: FastifyInstance) {
     })
 
     return reply.status(204).send()
+  })
+
+  app.get('/metrics', async (request) => {
+    const { sub: userId } = request.user
+
+    const totalMeals = await prisma.meal.findMany({
+      where: {
+        user_id: userId,
+      },
+      orderBy: {
+        date: 'desc',
+      },
+    })
+
+    const totalMealsOnDiet = await prisma.meal.aggregate({
+      where: {
+        user_id: userId,
+        is_on_diet: true,
+      },
+      _count: true,
+    })
+
+    const totalMealsOffDiet = await prisma.meal.aggregate({
+      where: {
+        user_id: userId,
+        is_on_diet: false,
+      },
+      _count: true,
+    })
+
+    const { bestSequenceOnDiet } = totalMeals.reduce(( acc, meal ) => {
+      if(meal.is_on_diet) {
+        acc.currentSequence += 1
+      } else {
+        acc.currentSequence = 0
+      }
+
+      if (acc.currentSequence > acc.bestSequenceOnDiet) {
+        acc.bestSequenceOnDiet = acc.currentSequence
+      }
+
+      return acc
+    }, { bestSequenceOnDiet: 0, currentSequence: 0 })
+
+
+    return {
+      totalMeals: totalMeals.length,
+      totalMealsOnDiet: totalMealsOnDiet._count,
+      totalMealsOffDiet: totalMealsOffDiet._count,
+      bestSequenceOnDiet,
+    }
   })
 }
