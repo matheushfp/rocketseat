@@ -9,7 +9,6 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/users', register)
   app.post('/sessions', authenticate)
 
-  app.addHook('onRequest', verifyJWT) // Routes Below this line uses Authentication
-
-  app.get('/me', profile)
+  // Authenticated routes
+  app.get('/me', { onRequest: verifyJWT }, profile)
 }
